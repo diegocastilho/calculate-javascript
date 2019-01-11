@@ -2,36 +2,69 @@ class CalcController{
 
     constructor(){
 
-        this._displayCalc = "0";
+        this._locale = 'pt-BR';
+        this._displayCalcEL = document.querySelector("#display");
+        this._dateEL = document.querySelector("#data");
+        this._timeEL = document.querySelector("#hora");
         this._currentdate;
         this.initialize();
     }
 
     initialize(){
+        this.setDisplayDateTime();
 
-        let displayCalcEL = document.querySelector("#display");
-        let dateEL = document.querySelector("#data");
-        let timeEL = document.querySelector("#hora");
+        setInterval(() =>{
+            this.setDisplayDateTime();
+            
 
-        displayCalcEL.innerHTML = "23456";
-        dateEL.innerHTML = "02/05/2018";
-        timeEL.innerHTML = "00:00";
+        }, 1000);
 
+    }
+
+    initButtonsEvents(){
+
+       let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+       
+    }
+
+    setDisplayDateTime(){
+        this.displayDate = this.currentdate.toLocaleDateString(this._locale, {
+            day: "2-digit",
+            month: "long",
+            year:"numeric"
+        });
+        this.displayTime = this.currentdate.toLocaleTimeString(this._locale);
+    }
+
+    get displayTime(){
+        return this._timeEL.innerHTML;
+    }
+
+    set displayTime(value){
+        return this._timeEL.innerHTML = value;
+    }
+
+    get displayDate(){
+        this._dateEL.innerHTML;
+    }
+
+    set displayDate(value){
+        return this._dateEL.innerHTML = value;
     }
 
     get displayCalc(){
-        return this._displayCalc;
+        return this._displayCalcEL.innerHTML;
     }
 
-    set displayCalc(valor){
-        this._displayCalc = valor; 
+    set displayCalc(value){
+        this._displayCalcEL.innerHTML = value; 
     }
 
     get currentdate(){
-        return this._currentdate;
+        return new Date();
     }
 
-    set currentdate(valor){
-        this._displayCalc = valor; 
+    set currentdate(value){
+        this._displayCalc = value; 
     }
 }
